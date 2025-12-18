@@ -10,7 +10,13 @@ def bookends(li: list):
     :return:
     """
 
+    firstNum = li[0]
+    secondNum = li[len(li)-1]
+    li.pop(0)
+    li.pop(len(li)-1)
+    newlist = [firstNum, secondNum]
 
+    return(newlist)
 
 def inOrder(li : list):
     """
@@ -18,7 +24,11 @@ def inOrder(li : list):
     :param list:
     :return:
     """
-
+    for i in range(len(li)-1):
+        if li[i] > li[i+1]:
+            return False
+    else:
+        return True
 
 
 def find(li: list, target : int):
@@ -39,6 +49,13 @@ def find(li: list, target : int):
     :return:
     """
 
+    for i in range(len(li)):
+        print(li[i])
+        if li[i] == target:
+            return i
+
+    return -1
+find([1,3,7],3)
 
 def removeLowest(li):
     """
@@ -48,6 +65,12 @@ def removeLowest(li):
     :param list:
     :return:
     """
+    minIndex = 0
+    for i in range(len(li)):
+        if li[i] < li[minIndex]:
+            minIndex = i
+    li.pop(minIndex)
+    return li
 
 
 def keepOrder(li: list, value):
@@ -59,15 +82,51 @@ def keepOrder(li: list, value):
     :param value:
     :return:
     """
+    for i in range(len(li)):
+        if value < li[i]:
+            li.insert(i,value)
+            return li
+    li.append(value)
+    return li
 
 
 def merge(l1:list, l2:list):
     """
     Given two lists that are in order. produce a new list that is the two lists merged together and in order.
-    Make sure to now modify either of the original lists.
+    Make sure to not modify either of the original lists.
     Example l1 = [1,3,5] l2 = [2,4,6,8] -> [1,2,3,4,5,6,8]
     :param l1:
     :param l2:
     :return:
     """
-    
+
+    # l3 = l1.copy()
+    # for i in range(len(l2)):
+    #     l3 = keepOrder(l3, l2[i])
+    # return l3
+
+    # l3=[]
+    # l2pos=0
+    # for l1Index in range(len(l1)):
+    #     for l2Index in range(l2pos,len(l2)):
+    #         print(l1, l2, l3)
+    #         if l1[l1Index] < l2[l2Index]:
+    #             l3.append(l1[l1Index])
+    #             break
+    #         else:
+    #             l3.append(l2[l2Index])
+    #     l2pos = l2Index
+    # for l2Index in range(l2pos,len(l2)):
+    #     l3.append(l2[l2Index])
+    # return l3
+    #
+
+    l3 = []
+    for x in l1:
+        l3.append(x)
+
+    for i in range(len(l2)):
+        l3 = keepOrder(l3, l2[i])
+    return l3
+
+
